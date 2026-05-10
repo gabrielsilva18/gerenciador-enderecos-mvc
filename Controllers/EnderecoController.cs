@@ -1,3 +1,4 @@
+using System.Text;
 using GerenciadorEnderecos.Data;
 using GerenciadorEnderecos.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,49 @@ namespace GerenciadorEnderecos.Controllers
                 .ToListAsync();
 
             return View(enderecos);
+        }
+
+        public async Task<IActionResult> ExportarCsv()
+        {
+            var redirect = RedirecionarSeNaoAutenticado();
+            if (redirect != null) return redirect;
+
+            var enderecos = await _context.Enderecos
+                .Where(e => e.UsuarioId == UsuarioLogadoId!.Value)
+                .OrderBy(e => e.Cidade)
+                .ThenBy(e => e.Logradouro)
+                .ToListAsync();
+
+            var sb = new StringBuilder();
+            sb.AppendLine("CEP,Logradouro,Complemento,Bairro,Cidade,UF,Número");
+
+            foreach (var e in enderecos)
+            {
+                sb.Append(CelulaCsv(e.Cep)).Append(',');
+                sb.Append(CelulaCsv(e.Logradouro)).Append(',');
+                sb.Append(CelulaCsv(e.Complemento)).Append(',');
+                sb.Append(CelulaCsv(e.Bairro)).Append(',');
+                sb.Append(CelulaCsv(e.Cidade)).Append(',');
+                sb.Append(CelulaCsv(e.Uf)).Append(',');
+                sb.Append(CelulaCsv(e.Numero));
+                sb.AppendLine();
+            }
+
+            var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: true);
+            var bytes = encoding.GetBytes(sb.ToString());
+
+            return File(bytes, "text/csv; charset=utf-8", "enderecos.csv");
+        }
+
+        private static string CelulaCsv(string? valor)
+        {
+            var s = valor ?? string.Empty;
+            if (s.Contains('"', StringComparison.Ordinal))
+                s = s.Replace("\"", "\"\"", StringComparison.Ordinal);
+            if (s.Contains(',', StringComparison.Ordinal) || s.Contains('"', StringComparison.Ordinal)
+                || s.Contains('\r', StringComparison.Ordinal) || s.Contains('\n', StringComparison.Ordinal))
+                return $"\"{s}\"";
+            return s;
         }
 
         public async Task<IActionResult> Details(int? id)
