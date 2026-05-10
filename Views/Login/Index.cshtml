@@ -2,22 +2,24 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-
-    <div class="card shadow p-4" style="width: 400px; border-radius: 15px;">
-
+<div class="container d-flex justify-content-center align-items-center min-vh-100 py-4">
+    <div class="card shadow p-4 w-100" style="max-width: 400px; border-radius: 15px;">
         <h2 class="text-center mb-4">Login</h2>
 
         <form method="post">
-
             <div class="mb-3">
-                <label class="form-label">Usuário</label>
-                <input type="text" name="nomeUsuario" class="form-control" placeholder="Digite seu usuário" />
+                <label class="form-label" for="loginNomeUsuario">Usuário</label>
+                <input type="text" name="nomeUsuario" id="loginNomeUsuario" class="form-control" placeholder="Digite seu usuário" autocomplete="username" />
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Senha</label>
-                <input type="password" name="senha" class="form-control" placeholder="Digite sua senha" />
+                <label class="form-label" for="loginSenha">Senha</label>
+                <div class="input-group">
+                    <input type="password" name="senha" id="loginSenha" class="form-control" placeholder="Digite sua senha" autocomplete="current-password" />
+                    <button type="button" class="btn btn-outline-secondary px-3" data-password-toggle="#loginSenha" aria-label="Mostrar senha" title="Mostrar ou ocultar senha">
+                        <span class="js-password-icon" aria-hidden="true">👁️</span>
+                    </button>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">
@@ -37,9 +39,10 @@
                     <a href="/Registro">Cadastre-se</a>
                 </p>
             </div>
-
         </form>
-
     </div>
-
 </div>
+
+@section Scripts {
+    <script src="~/js/password-toggle.js" asp-append-version="true"></script>
+}
