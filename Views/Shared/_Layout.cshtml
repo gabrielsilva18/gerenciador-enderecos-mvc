@@ -26,6 +26,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (Context.Session.GetInt32("UsuarioId") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Endereco" asp-action="Index">Endereços</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
