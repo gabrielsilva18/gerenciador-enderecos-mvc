@@ -17,8 +17,12 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label asp-for="Cep" class="form-label"></label>
-                            <input asp-for="Cep" class="form-control" />
+                            <div class="input-group">
+                                <input asp-for="Cep" class="form-control" placeholder="00000-000" autocomplete="postal-code" />
+                                <button type="button" class="btn btn-outline-secondary" id="btnBuscarCep" title="Buscar pelo CEP (ViaCEP)">Buscar</button>
+                            </div>
                             <span asp-validation-for="Cep" class="text-danger"></span>
+                            <div id="viacep-feedback" class="small mt-1" hidden></div>
                         </div>
                         <div class="col-md-8">
                             <label asp-for="Logradouro" class="form-label"></label>
@@ -64,4 +68,5 @@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script src="~/js/endereco-viacep.js" asp-append-version="true"></script>
 }
