@@ -2,7 +2,33 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+
+    <div class="text-center">
+
+        <h1 class="display-4">Sistema Gerenciador de Endereços</h1>
+
+        @if (ViewBag.Usuario != null)
+        {
+            <div class="alert alert-success mt-4">
+                Bem-vindo, <strong>@ViewBag.Usuario</strong> 👋
+            </div>
+
+            <a href="/Login/Logout" class="btn btn-danger mt-3">
+                Sair
+            </a>
+        }
+        else
+        {
+            <div class="alert alert-warning mt-4">
+                Você não está logado.
+            </div>
+
+            <a href="/Login" class="btn btn-primary mt-3">
+                Ir para Login
+            </a>
+        }
+
+    </div>
+
 </div>

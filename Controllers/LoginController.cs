@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GerenciadorEnderecos.Data;
-using GerenciadorEnderecos.Models;
 
 namespace GerenciadorEnderecos.Controllers
 {
@@ -18,18 +17,29 @@ namespace GerenciadorEnderecos.Controllers
             return View();
         }
 
-        public IActionResult Register()
+        [HttpPost]
+        public IActionResult Index(string nomeUsuario, string senha)
         {
+            var user = _context.Usuarios
+                .FirstOrDefault(x => x.NomeUsuario == nomeUsuario && x.Senha == senha);
+
+            if (user != null)
+            {
+                HttpContext.Session.SetString("UsuarioLogado", user.Nome);
+                HttpContext.Session.SetInt32("UsuarioId", user.Id);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.Error = "Usuário ou senha inválidos";
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Register(Usuario usuario)
+        
+        public IActionResult Logout()
         {
-            _context.Usuarios.Add(usuario);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Login");
         }
     }
 }

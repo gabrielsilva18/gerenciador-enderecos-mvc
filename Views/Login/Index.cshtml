@@ -3,7 +3,7 @@
 }
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    
+
     <div class="card shadow p-4" style="width: 400px; border-radius: 15px;">
 
         <h2 class="text-center mb-4">Login</h2>
@@ -12,17 +12,24 @@
 
             <div class="mb-3">
                 <label class="form-label">Usuário</label>
-                <input type="text" name="nomeUsuario" class="form-control" />
+                <input type="text" name="nomeUsuario" class="form-control" placeholder="Digite seu usuário" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Senha</label>
-                <input type="password" name="senha" class="form-control" />
+                <input type="password" name="senha" class="form-control" placeholder="Digite sua senha" />
             </div>
 
             <button type="submit" class="btn btn-primary w-100">
                 Entrar
             </button>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger mt-3 text-center p-2">
+                    @ViewBag.Error
+                </div>
+            }
 
             <div class="text-center mt-3">
                 <p class="mb-0">
