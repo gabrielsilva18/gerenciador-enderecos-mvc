@@ -4,45 +4,51 @@
     ViewData["Title"] = "Cadastro";
 }
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100 py-4">
-    <div class="card shadow p-4 w-100" style="max-width: 400px; border-radius: 15px;">
-        <h2 class="text-center mb-4">Cadastro</h2>
+<div class="auth-page d-flex justify-content-center align-items-center py-2 py-md-4">
+    <div class="card shadow-sm auth-card w-100 border-0">
+        <div class="card-body p-4 p-md-5">
+            <h2 class="text-center mb-4 h4 fw-semibold">Cadastro</h2>
 
-        <form asp-action="Index" method="post">
-            <div class="mb-3">
-                <label asp-for="Nome" class="form-label"></label>
-                <input asp-for="Nome" class="form-control" autocomplete="name" />
-            </div>
+            <form asp-action="Index" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger small" role="alert"></div>
 
-            <div class="mb-3">
-                <label asp-for="NomeUsuario" class="form-label"></label>
-                <input asp-for="NomeUsuario" class="form-control" autocomplete="username" />
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Senha" class="form-label"></label>
-                <div class="input-group">
-                    <input asp-for="Senha" type="password" class="form-control" autocomplete="new-password" />
-                    <button type="button" class="btn btn-outline-secondary px-3" data-password-toggle="#Senha" aria-label="Mostrar senha" title="Mostrar ou ocultar senha">
-                        <span class="js-password-icon" aria-hidden="true">👁️</span>
-                    </button>
+                <div class="mb-3">
+                    <label asp-for="Nome" class="form-label"></label>
+                    <input asp-for="Nome" class="form-control" autocomplete="name" />
+                    <span asp-validation-for="Nome" class="text-danger small d-block mt-1"></span>
                 </div>
-            </div>
 
-            <button type="submit" class="btn btn-success w-100">
-                Cadastrar
-            </button>
+                <div class="mb-3">
+                    <label asp-for="NomeUsuario" class="form-label"></label>
+                    <input asp-for="NomeUsuario" class="form-control" autocomplete="username" />
+                    <span asp-validation-for="NomeUsuario" class="text-danger small d-block mt-1"></span>
+                </div>
 
-            <div class="text-center mt-3">
-                <p class="mb-0">
+                <div class="mb-4">
+                    <label asp-for="Senha" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="Senha" type="password" class="form-control" autocomplete="new-password" />
+                        <button type="button" class="btn btn-outline-secondary px-3" data-password-toggle="#Senha" aria-label="Mostrar senha" title="Mostrar ou ocultar senha">
+                            <span class="js-password-icon" aria-hidden="true">👁️</span>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Senha" class="text-danger small d-block mt-1"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 py-2">
+                    Cadastrar
+                </button>
+
+                <p class="text-center text-muted small mt-4 mb-0">
                     Já possui conta?
-                    <a href="/Login">Faça login</a>
+                    <a href="/Login" class="text-decoration-none">Faça login</a>
                 </p>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script src="~/js/password-toggle.js" asp-append-version="true"></script>
 }

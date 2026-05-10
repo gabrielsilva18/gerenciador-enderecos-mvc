@@ -4,11 +4,11 @@
     ViewData["Title"] = "Novo endereço";
 }
 
-<h1 class="h3 mb-4">Novo endereço</h1>
+<h1 class="h3 mb-4 page-title">Novo endereço</h1>
 
 <div class="row justify-content-center">
     <div class="col-lg-8">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm border-0 card-form">
             <div class="card-body">
                 <form asp-action="Create" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-4 d-flex gap-2">
+                    <div class="mt-4 d-flex flex-wrap gap-2">
                         <button type="submit" class="btn btn-primary">Salvar</button>
                         <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
                     </div>

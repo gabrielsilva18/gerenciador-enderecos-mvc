@@ -1,34 +1,33 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Início";
 }
 
-<div class="container mt-5">
-
-    <div class="text-center">
-
-        <h1 class="display-4">Sistema Gerenciador de Endereços</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7 text-center py-3 py-md-5">
+        <h1 class="display-6 fw-semibold page-title mb-3">Sistema Gerenciador de Endereços</h1>
+        <p class="text-muted lead fs-6 mb-4">Organize seus endereços com login seguro e cadastro integrado ao ViaCEP.</p>
 
         @if (ViewBag.Usuario != null)
         {
-            <div class="alert alert-success mt-4">
+            <div class="alert alert-success shadow-sm text-start text-md-center mb-4" role="status">
                 Bem-vindo, <strong>@ViewBag.Usuario</strong> 👋
             </div>
 
-            <a href="/Login/Logout" class="btn btn-danger mt-3">
-                Sair
-            </a>
+            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center align-items-stretch align-items-sm-center">
+                <a asp-controller="Endereco" asp-action="Index" class="btn btn-primary px-4">Meus endereços</a>
+                <a asp-controller="Login" asp-action="Logout" class="btn btn-outline-danger px-4">Sair</a>
+            </div>
         }
         else
         {
-            <div class="alert alert-warning mt-4">
-                Você não está logado.
+            <div class="alert alert-warning shadow-sm mb-4" role="status">
+                Você não está logado. Entre para gerenciar seus endereços.
             </div>
 
-            <a href="/Login" class="btn btn-primary mt-3">
-                Ir para Login
-            </a>
+            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
+                <a asp-controller="Login" asp-action="Index" class="btn btn-primary px-4">Ir para login</a>
+                <a asp-controller="Registro" asp-action="Index" class="btn btn-outline-secondary px-4">Criar conta</a>
+            </div>
         }
-
     </div>
-
 </div>
